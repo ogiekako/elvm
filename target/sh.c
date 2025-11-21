@@ -3,10 +3,8 @@
 
 static void sh_init_state(Data* data) {
   emit_line("#! /bin/sh");
-#ifdef POSIX_SHELL
   emit_line("GETC_BUF=\"\"");
   emit_line("GETC_BUF_ENDING=-1 # -1: uninit, 0: EOF, 10: newline");
-#endif
   for (int i = 0; i < 7; i++) {
     emit_line("%s=0", reg_names[i]);
   }
@@ -93,7 +91,6 @@ static void sh_emit_inst(Inst* inst) {
     break;
 
   case GETC:
-#ifdef POSIX_SHELL
     // The POSIX standard doesn't support read -n1, so we read a full line and buffer it.
     // The GETC state machines can be in 3 states:
     //   Non-empty GETC_BUF buffer: take first char from buffer
@@ -120,17 +117,6 @@ static void sh_emit_inst(Inst* inst) {
     emit_line(" %s=$(printf '%%d' \"'$t'\")", reg_names[inst->dst.reg]);
     emit_line(" break");
     emit_line("done");
-#else
-    emit_line("if read -rn1 t; then");
-    emit_line(" if [ -z $t ]; then");
-    emit_line("  %s=10", reg_names[inst->dst.reg]);
-    emit_line(" else");
-    emit_line("  %s=$(printf '%%d' \"'$t'\")", reg_names[inst->dst.reg]);
-    emit_line(" fi");
-    emit_line("else");
-    emit_line(" %s=0", reg_names[inst->dst.reg]);
-    emit_line("fi");
-#endif
     break;
 
   case EXIT:
