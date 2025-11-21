@@ -18,7 +18,6 @@ Currently, there are 60 backends:
 1. *Acc!!*
 1. Aheui
 1. Awk (by [@dubek](https://github.com/dubek/))
-1. Bash
 1. Befunge
 1. Binary Lambda Calculus (by [@woodrush](https://github.com/woodrush/))
 1. Brainfuck
@@ -52,6 +51,7 @@ Currently, there are 60 backends:
 1. Perl5 (by [@mackee](https://github.com/mackee/))
 1. PHP (by [@zonuexe](https://github.com/zonuexe/))
 1. Piet
+1. POSIX Shell
 1. Python
 1. Ruby
 1. Scheme syntax-rules (by [@zeptometer](https://github.com/zeptometer/))
