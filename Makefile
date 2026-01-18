@@ -120,6 +120,7 @@ ELC_SRCS := \
 	forth.c \
 	f90.c \
 	fs.c \
+	gnufind.c \
 	go.c \
 	gomplate.c \
 	hell.c \
@@ -495,6 +496,13 @@ $(OUT.eir.fs.out): tools/runfs.sh
 TARGET := pl
 RUNNER := perl
 include target.mk
+
+ifdef GNUFIND
+TARGET := gnufind
+RUNNER := tools/rungnufind.sh
+include target.mk
+$(OUT.eir.gnufind.out): tools/rungnufind.sh
+endif
 
 TARGET := go
 RUNNER := go run
